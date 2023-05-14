@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>936750519264-5ds2g8sogo339mule3hqu6kq395bkkcu.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.936750519264-5ds2g8sogo339mule3hqu6kq395bkkcu</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCi7mJEPnhwOmSi_Cstm1cKr9NH--tkGNU</string>
+	<key>GCM_SENDER_ID</key>
+	<string>936750519264</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.mcdonalds.mcdelivery</string>
+	<key>PROJECT_ID</key>
+	<string>mcdeliverytest-77902</string>
+	<key>STORAGE_BUCKET</key>
+	<string>mcdeliverytest-77902.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:936750519264:ios:ad0435985c51f85c841185</string>
+</dict>
+</plist>

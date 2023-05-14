@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">McDelivery</string>
+    <string name="facebook_app_id">444277383162683</string>
+    <string name="google_map_api_key">AIzaSyAGHrOEiC2GUhkoBjGnfC5RQvp2ec7vN-Q</string>
+    <string name="clevertap_account_id">R55-976-875Z</string>
+    <string name="clevertap_token">6ac-552</string>
+    <string name="appCenterCrashes_whenToSendCrashes" moduleConfig="true" translatable="false">DO_NOT_ASK_JAVASCRIPT</string>
+    <string name="appCenterAnalytics_whenToEnableAnalytics" moduleConfig="true" translatable="false">ALWAYS_SEND</string>
+</resources>

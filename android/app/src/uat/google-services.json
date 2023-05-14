@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "681259853072",
+    "project_id": "worldskills-2742e",
+    "storage_bucket": "worldskills-2742e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:681259853072:android:de8570fe6ecec06d1b7195",
+        "android_client_info": {
+          "package_name": "com.worldskills.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "681259853072-g9hn06p9bt0gih8bov7oid7dd0oitv2k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCpJqLZ03-MIORO58IadlgMW216zqQHhU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "681259853072-g9hn06p9bt0gih8bov7oid7dd0oitv2k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

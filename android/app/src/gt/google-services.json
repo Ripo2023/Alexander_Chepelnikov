@@ -1,0 +1,118 @@
+{
+  "project_info": {
+    "project_number": "936750519264",
+    "project_id": "mcdeliverytest-77902",
+    "storage_bucket": "mcdeliverytest-77902.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:936750519264:android:485cc1c5a6b09cac841185",
+        "android_client_info": {
+          "package_name": "com.mcdonalds"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "936750519264-6shmkmb57tacp7cr2916rcmcth0blvqi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgq4H-qwtFjpic7JxG6fzxFrfmY_CQBtE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "936750519264-6shmkmb57tacp7cr2916rcmcth0blvqi.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "936750519264-5ds2g8sogo339mule3hqu6kq395bkkcu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mcdonalds.mcdelivery"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:936750519264:android:c8cd13f9b895ae06841185",
+        "android_client_info": {
+          "package_name": "com.mcdonalds.mcdonaldsgt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "936750519264-6shmkmb57tacp7cr2916rcmcth0blvqi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgq4H-qwtFjpic7JxG6fzxFrfmY_CQBtE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "936750519264-6shmkmb57tacp7cr2916rcmcth0blvqi.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "936750519264-5ds2g8sogo339mule3hqu6kq395bkkcu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mcdonalds.mcdelivery"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:936750519264:android:eccccf1de32e173b841185",
+        "android_client_info": {
+          "package_name": "com.mcdonalds.mcdonaldshn"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "936750519264-6shmkmb57tacp7cr2916rcmcth0blvqi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgq4H-qwtFjpic7JxG6fzxFrfmY_CQBtE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "936750519264-6shmkmb57tacp7cr2916rcmcth0blvqi.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "936750519264-5ds2g8sogo339mule3hqu6kq395bkkcu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mcdonalds.mcdelivery"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
