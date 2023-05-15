@@ -1,3 +1,4 @@
+//файл стилевых значений
 import Metrics from './Metrics';
 
 const ratio = Metrics.ratio.y;

@@ -20,7 +20,7 @@ const SplashScreen = ({ navigation }: ApplicationScreenProps): JSX.Element => {
     dispatch(setCart([]));
     setTimeout(() => {
       //проверка если пользователь уже просмотрел слайдер
-      if (isOnboarding) {
+      if (!isOnboarding) {
         navigation.navigate('LoginScreen');
       } else {
         navigation.navigate('OnBoardingScreen');
