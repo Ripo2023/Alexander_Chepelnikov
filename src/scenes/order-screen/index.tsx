@@ -12,19 +12,19 @@ import { ApplicationScreenProps } from 'types/navigation';
 import Metrics from '../../theme/Metrics';
 import PrimarySmallButton from '../../components/buttons/primary-small-button';
 import PrimaryButton from '../../components/buttons/primary-button';
-import { useStoreDispatch } from "../../store/hooks";
-import { addToCart, setCart } from "../../store/reducers/cart";
-import { addOrder } from "../../store/reducers/orders";
+import { useStoreDispatch } from '../../store/hooks';
+import { addToCart, setCart } from '../../store/reducers/cart';
+import { addOrder } from '../../store/reducers/orders';
 
-//
-const calcSum = (arr: any)=> {
+//расчёт суммы заказа
+const calcSum = (arr: any) => {
   let sum = 0;
-  arr.map((item: any) => sum+=item);
+  arr.map((item: any) => (sum += item));
   return sum;
-}
+};
 
 const Index = ({ navigation, route }: ApplicationScreenProps) => {
-  const { cart, id } = route.params
+  const { cart, id } = route.params;
   const { Layout, Gutters, Fonts, Images, Colors } = useTheme();
   const dispatch = useStoreDispatch();
   return (
@@ -65,47 +65,49 @@ const Index = ({ navigation, route }: ApplicationScreenProps) => {
           return cart[index];
         }}
         getItemCount={() => cart.length}
-        renderItem={({item} :any) => (
+        renderItem={({ item }: any) => (
           <View style={[Layout.row, Layout.scrollSpaceBetween]}>
-              <Image
-                source={Images.Coffee}
-                style={{
-                  flex: 1,
-                  alignSelf: 'center',
-                  width: Metrics.getWidth(90),
-                  height: Metrics.getHeight(70),
-                }}
-              />
-              <View style={{flex: 2}}>
-                <Text style={[Fonts.title2_semibold]}>
-                  {item.name}
-                </Text>
-                <Text
-                  style={[, Fonts.text_regular,
-                    { color: Colors.darkGrey },
-                    Gutters.x4BMargin,
-                  ]}
-                >
-                  {item.volume}ml
-                </Text>
-                <Text
-                  style={[, Fonts.caption1_regular,
-                    { color: Colors.orange },
-                    Gutters.x12BMargin,
-                  ]}
-                >
-                  + {item.component.map((item: any) => item.name).join(', ')}
-                </Text>
-              </View>
-                <Text
-                  style={[
-                    Fonts.text_semibold,
-                    { color: Colors.black, flex: 1, textAlign: 'right'  },
-                    Gutters.x12BMargin,
-                  ]}
-                >
-                  {item.price} ₽
-                </Text>
+            <Image
+              source={Images.Coffee}
+              style={{
+                flex: 1,
+                alignSelf: 'center',
+                width: Metrics.getWidth(90),
+                height: Metrics.getHeight(70),
+              }}
+            />
+            <View style={{ flex: 2 }}>
+              <Text style={[Fonts.title2_semibold]}>{item.name}</Text>
+              <Text
+                style={[
+                  ,
+                  Fonts.text_regular,
+                  { color: Colors.darkGrey },
+                  Gutters.x4BMargin,
+                ]}
+              >
+                {item.volume}ml
+              </Text>
+              <Text
+                style={[
+                  ,
+                  Fonts.caption1_regular,
+                  { color: Colors.orange },
+                  Gutters.x12BMargin,
+                ]}
+              >
+                + {item.component.map((item: any) => item.name).join(', ')}
+              </Text>
+            </View>
+            <Text
+              style={[
+                Fonts.text_semibold,
+                { color: Colors.black, flex: 1, textAlign: 'right' },
+                Gutters.x12BMargin,
+              ]}
+            >
+              {item.price} ₽
+            </Text>
           </View>
         )}
       />
@@ -120,25 +122,29 @@ const Index = ({ navigation, route }: ApplicationScreenProps) => {
           },
         ]}
       >
-        {route.params.type === 'waiting' ?
+        {route.params.type === 'waiting' ? (
           <PrimaryButton
-          backgroundColor={Colors.orange}
-          textColor={Colors.white}
-          title={`Buy for ${calcSum(cart.map((item: any)=>item.price))} ₽`}
-          onPress={() => {
-            dispatch(addOrder({id: route.params.id, cart: route.params.cart}))
-            dispatch(setCart([]))
-            navigation.goBack();
-          }}
-        />  : <PrimaryButton
             backgroundColor={Colors.orange}
             textColor={Colors.white}
-          title={'QR code'}
-          onPress={() => {
-            navigation.navigate('QrCodeScreen');
-          }}
-        />}
-
+            title={`Buy for ${calcSum(cart.map((item: any) => item.price))} ₽`}
+            onPress={() => {
+              dispatch(
+                addOrder({ id: route.params.id, cart: route.params.cart }),
+              );
+              dispatch(setCart([]));
+              navigation.goBack();
+            }}
+          />
+        ) : (
+          <PrimaryButton
+            backgroundColor={Colors.orange}
+            textColor={Colors.white}
+            title={'QR code'}
+            onPress={() => {
+              navigation.navigate('QrCodeScreen', { cart: cart });
+            }}
+          />
+        )}
       </View>
     </View>
   );

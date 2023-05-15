@@ -90,10 +90,19 @@ const Index = ({ navigation }: ApplicationScreenProps) => {
                 {id}
               </Text>
             </TouchableOpacity>
+            <View
+              style={[
+                Layout.fullWidth,
+                Gutters.x24HPadding,
+                Gutters.x12Margin,
+                { borderWidth: 1, borderColor: Colors.midGrey },
+              ]}
+            />
           </>
         ) : (
           <></>
         )}
+
         <Text style={[Fonts.title1_semibold]}>Ready</Text>
         <FlatList
           data={orders}
@@ -132,6 +141,14 @@ const Index = ({ navigation }: ApplicationScreenProps) => {
               </Text>
             </TouchableOpacity>
           )}
+        />
+        <View
+          style={[
+            Layout.fullWidth,
+            Gutters.x24HPadding,
+            Gutters.x12Margin,
+            { borderWidth: 1, borderColor: Colors.midGrey },
+          ]}
         />
         <Text style={[Fonts.title1_semibold]}>In progress</Text>
         <FlatList

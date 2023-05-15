@@ -11,6 +11,8 @@ import { addToCart } from '../../store/reducers/cart';
 import { alert } from '../App';
 import { Modalize } from 'react-native-modalize';
 import { useNavigation } from '@react-navigation/native';
+import { IconButton, Tooltip } from 'react-native-paper';
+import Info from "../../theme/assets/svg/Info";
 
 const volumeVariants = [
   { id: 0, value: 200, multiple: 1 },
@@ -72,7 +74,6 @@ const Index = ({ modalRef }: any) => {
               Cappuccino
             </Text>
           </View>
-          <View style={{ flex: 1 }} />
         </View>
         <ScrollView style={[Gutters.x16HMargin]}>
           <Image
@@ -228,6 +229,7 @@ const Index = ({ modalRef }: any) => {
               modalRef.current.close();
             }}
           />
+          <Text style={[Fonts.textCenter]}>Разработал Алекасндр Чепельников</Text>
         </View>
       </View>
     </Modalize>

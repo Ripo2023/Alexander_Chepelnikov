@@ -70,7 +70,7 @@ const OnBoardingScreen = ({
         { backgroundColor: Colors.white },
       ]}
     >
-      {carousel.filter(item => !item.see).length === 2 ? (
+      {carousel.filter(item => !item.see).length > 2 ? (
         <TouchableOpacity
           onPress={() => {
             ref.current.scrollTo({ index: 0, animated: true });
@@ -102,6 +102,7 @@ const OnBoardingScreen = ({
         scrollAnimationDuration={0}
         enabled={carousel.filter(item => !item.see).length !== 2}
         onScrollEnd={index => {
+          //изменение статуса панель онобродинга на просмотренный
           if (index !== 0 || ref.current.getCurrentIndex() === 1) {
             setCarousel([
               ...carousel.filter(item => item.see),

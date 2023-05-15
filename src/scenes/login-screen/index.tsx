@@ -16,9 +16,10 @@ import PrimaryButton from '../../components/buttons/primary-button';
 import Back from '../../theme/assets/svg/Back';
 import { ApplicationScreenProps } from 'types/navigation';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
-import { useStoreDispatch } from "../../store/hooks";
-import { setUser } from "../../store/reducers/user";
-import { CommonActions } from "@react-navigation/native";
+import { useStoreDispatch } from '../../store/hooks';
+import { setUser } from '../../store/reducers/user';
+import { CommonActions } from '@react-navigation/native';
+import { alert } from '../App';
 
 const Index = ({ navigation }: ApplicationScreenProps): JSX.Element => {
   const { Images, Layout, Gutters, Fonts, Colors, Common } = useTheme();
@@ -41,21 +42,27 @@ const Index = ({ navigation }: ApplicationScreenProps): JSX.Element => {
               name: 'MainListScreen',
             },
           ],
-        }));
+        }),
+      );
       dispatch(setUser(JSON.stringify(user)));
     }
   }, []);
   //авторизация по телефону
   const signInWithPhoneNumber = async () => {
-    const confirmation = await auth().signInWithPhoneNumber(phone);
-    setConfirm(confirmation);
+    try {
+      const confirmation = await auth().signInWithPhoneNumber(phone);
+      setConfirm(confirmation);
+    } catch (e) {
+      alert('error', 'Internet error', 'check your connection');
+    }
   };
   //подтверждение кода
   async function confirmCode() {
     try {
+      alert('success', 'Welcome!', 'We glad to see you');
       await confirm.confirm(code);
     } catch (error) {
-      console.log('Invalid code.');
+      alert('error', 'Invalid code.', 'please try again');
     }
   }
   useEffect(() => {
@@ -119,7 +126,11 @@ const Index = ({ navigation }: ApplicationScreenProps): JSX.Element => {
                 outlineColor={Colors.midGrey}
               />
             </View>
-            <PrimaryButton title={'Sign In'} onPress={() => confirmCode()} />
+            <PrimaryButton
+              title={'Sign In'}
+              backgroundColor={!code ? Colors.midGrey : Colors.orange}
+              onPress={() => confirmCode()}
+            />
           </>
         ) : (
           <>
@@ -159,6 +170,7 @@ const Index = ({ navigation }: ApplicationScreenProps): JSX.Element => {
             </View>
             <PrimaryButton
               title={'Continue'}
+              backgroundColor={!phone ? Colors.midGrey : Colors.orange}
               onPress={() => signInWithPhoneNumber()}
             />
           </>

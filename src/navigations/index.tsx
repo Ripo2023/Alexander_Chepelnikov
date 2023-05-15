@@ -43,7 +43,7 @@ const RootNavigation = () => {
           <StatusBar
             backgroundColor={Colors.white}
             animated
-            barStyle={darkMode ? 'light-content' : 'dark-content'}
+            barStyle={'dark-content'}
           />
           <Stack.Navigator
             screenOptions={{

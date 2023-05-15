@@ -6,9 +6,11 @@ import Back from '../../theme/assets/svg/Back';
 import QRCode from 'react-native-qrcode-svg';
 import Metrics from '../../theme/Metrics';
 import Share from 'react-native-share';
-const Index = ({ navigation }: ApplicationScreenProps) => {
+import { useStoreSelector } from '../../store/hooks';
+const Index = ({ navigation, route }: ApplicationScreenProps) => {
   const { Layout, Gutters, Fonts, Images, Colors } = useTheme();
   const ref = useRef<QRCode>();
+  const { user }: any = useStoreSelector(state => state.userReducer);
   const [qr, setQR] = useState('');
   useEffect(() => {
     // @ts-ignore
@@ -47,13 +49,17 @@ const Index = ({ navigation }: ApplicationScreenProps) => {
       <View style={[Layout.fullSize, Layout.center]}>
         <TouchableOpacity
           onPress={() => {
-            Share.open({ url: `data:image/png;base64,${qr}` }).then((err)=> console.log(err));
+            Share.open({ url: `data:image/png;base64,${qr}` }).then(err =>
+              console.log(err),
+            );
           }}
         >
           <QRCode
             size={Metrics.getWidth(260)}
             getRef={c => (ref.current = c)}
-            value="+375295739512"
+            value={`${JSON.parse(user).phoneNumebr}\n${JSON.stringify(
+              route.params.cart,
+            )}`}
           />
         </TouchableOpacity>
       </View>

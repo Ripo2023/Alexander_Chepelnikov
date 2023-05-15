@@ -22,6 +22,19 @@ const Index = ({ navigation }: ApplicationScreenProps) => {
     { id: 2, name: 'Drinks' },
     { id: 3, name: 'Desserts' },
   ];
+  const items = {
+    Coffee: [
+      { image: Images.Coffee, name: 'Cappuccino', price: 120 },
+      { image: Images.Coffee, name: 'Cappuccino', price: 120 },
+      { image: Images.Coffee, name: 'Cappuccino', price: 120 },
+      { image: Images.Coffee, name: 'Cappuccino', price: 120 },
+      { image: Images.Coffee, name: 'Cappuccino', price: 120 },
+    ],
+    Tea: [],
+    Drinks: [],
+    Desserts: [],
+  };
+
   const modalizeRef = useRef<Modalize>(null);
 
   const onOpen = () => {
@@ -32,8 +45,8 @@ const Index = ({ navigation }: ApplicationScreenProps) => {
       <ScrollView
         style={[
           { backgroundColor: Colors.white },
-          Gutters.x32TMargin,
-          Gutters.x16HMargin,
+          Gutters.x32TPadding,
+          Gutters.x16HPadding,
         ]}
         stickyHeaderIndices={[2]}
       >
@@ -131,7 +144,9 @@ const Index = ({ navigation }: ApplicationScreenProps) => {
             Gutters.x24TMargin,
           ]}
         >
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((item, index) => (
+          {items[
+            categories.filter(item => item.id === selectedCategory)[0].name
+          ].map((item, index) => (
             <View
               key={index}
               style={{ shadowColor: 'rgba(0,0,0,0.22)', elevation: 4 }}
