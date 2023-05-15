@@ -44,6 +44,16 @@ const OnBoardingScreen = ({
         { backgroundColor: Colors.white },
       ]}
     >
+      <TouchableOpacity>
+        <Text
+          style={[
+            Fonts.text_regular,
+            { color: Colors.orange, textAlign: 'right' },
+          ]}
+        >
+          Skip
+        </Text>
+      </TouchableOpacity>
       <Carousel
         loop={false}
         ref={ref}
@@ -89,8 +99,8 @@ const OnBoardingScreen = ({
                       key={ind}
                       style={[
                         item2.id === item.id
-                          ? Gutters.x12Padding
-                          : Gutters.x8Padding,
+                          ? Gutters.x8Padding
+                          : Gutters.x4Padding,
                         {
                           backgroundColor:
                             item2.id === item.id ? Colors.orange : Colors.grey,

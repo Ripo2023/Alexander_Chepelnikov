@@ -1,16 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { FirebaseAuthTypes } from "@react-native-firebase/auth";
 
-const messageSlice = createSlice({
-  name: 'message',
+const userSlice = createSlice({
+  name: 'user',
   initialState: {
-    message: 'Initial message',
+    user: null,
   },
   reducers: {
-    setMessage(state, action: PayloadAction<string>) {
-      state.message = action.payload;
+    setUser(state, action: PayloadAction<any>) {
+      state.user = action.payload;
     },
   },
 });
 
-export const { setMessage } = messageSlice.actions;
-export default messageSlice.reducer;
+export const { setUser } = userSlice.actions;
+export default userSlice.reducer;

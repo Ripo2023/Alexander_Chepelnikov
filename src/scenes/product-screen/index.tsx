@@ -8,6 +8,10 @@ import { G } from 'react-native-svg';
 import { white } from 'react-native-paper/lib/typescript/src/styles/themes/v2/colors';
 import Plus from '../../theme/assets/svg/Plus';
 import PrimaryButton from '../../components/buttons/primary-button';
+import { useStoreDispatch, useStoreSelector } from "../../store/hooks";
+import firestore from '@react-native-firebase/firestore';
+import { addToCart } from "../../store/reducers/cart";
+import { alert } from "../App";
 
 const volumeVariants = [
   { id: 0, value: 200, multiple: 1 },
@@ -24,18 +28,20 @@ const sumComponents = (array: any[]) => {
 const Index = ({ navigation }: ApplicationScreenProps) => {
   const { Images, Layout, Gutters, Fonts, Colors, Common } = useTheme();
   const [selectedValue, setSelectedValue] = useState(0);
-
+  const dispatch = useStoreDispatch();
+  const { user } = useStoreSelector(state => state.userReducer);
+  const { cart, id } = useStoreSelector(state => state.cartReducer);
   const [componentsVariants, setComponents] = useState([
     {
       id: 0,
-      choosed: false,
+      choosed: true,
       price: 0,
       name: 'Espresso Arabica',
       image: Images.Coffee,
     },
     {
       id: 1,
-      choosed: false,
+      choosed: true,
       price: 0,
       name: 'Cow\'s milk',
       image: Images.Coffee,
@@ -62,7 +68,7 @@ const Index = ({ navigation }: ApplicationScreenProps) => {
             <Back />
           </TouchableOpacity>
         </View>
-        <View style={[Layout.center, { flex: 1 }]}>
+        <View style={[Layout.center]}>
           <Text style={[Fonts.textCenter, Fonts.title1_semibold]}>
             Cappuccino
           </Text>
@@ -182,13 +188,23 @@ const Index = ({ navigation }: ApplicationScreenProps) => {
         style={[Gutters.x12VPadding, { backgroundColor: Colors.lightGrey }]}
       >
         <PrimaryButton
+          backgroundColor={Colors.orange}
+          textColor={Colors.white}
           title={`Add to cart ${
             sumComponents(componentsVariants.filter(item => item.choosed)) +
             120 *
               volumeVariants.filter(item => item.id === selectedValue)[0]
                 .multiple
           }`}
-          onPress={() => {}}
+          onPress={async () => {
+            //добалвение в корзину товара
+            dispatch(addToCart({ name: 'Cappuccino', component: componentsVariants.filter((item) => item.choosed), volume: volumeVariants.filter(item => item.id === selectedValue)[0].value, price:  sumComponents(componentsVariants.filter(item => item.choosed)) +
+                120 *
+                volumeVariants.filter(item => item.id === selectedValue)[0]
+                  .multiple }))
+            alert('success', '', 'your product added on cart')
+            navigation.goBack();
+          }}
         />
       </View>
     </View>

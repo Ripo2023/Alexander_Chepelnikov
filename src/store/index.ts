@@ -1,5 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import userReducer from './reducers/user';
+import cartReducer from './reducers/cart';
+import ordersReducer from './reducers/orders';
 import onBoardingReducer from './reducers/onboarding';
 import {
   FLUSH,
@@ -12,7 +14,6 @@ import {
   REHYDRATE,
 } from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { api } from '../services/api';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import theme from './reducers/theme';
 
@@ -20,7 +21,8 @@ const rootReducer = combineReducers({
   userReducer,
   theme,
   onBoardingReducer,
-  [api.reducerPath]: api.reducer,
+  cartReducer,
+  ordersReducer
 });
 
 const persistConfig = {
@@ -39,7 +41,7 @@ const setupStore = () =>
         serializableCheck: {
           ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
         },
-      }).concat(api.middleware);
+      });
       if (__DEV__ && !process.env.JEST_WORKER_ID) {
         const createDebugger = require('redux-flipper').default;
         middlewares.push(createDebugger());
