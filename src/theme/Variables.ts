@@ -1,3 +1,4 @@
+//файл стилевых значений
 import Metrics from './Metrics';
 
 const ratio = Metrics.ratio.y;
@@ -47,6 +48,7 @@ export const MetricsSizes = {
   x32: ratio * 32,
   x48: ratio * 48,
   x56: ratio * 48,
+  x68: ratio * 68,
   x92: ratio * 92,
 };
 

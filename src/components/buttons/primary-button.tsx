@@ -4,21 +4,23 @@ import useTheme from '../../hooks/useTheme';
 interface Props {
   title: string;
   onPress: () => void;
+  backgroundColor?: string;
+  textColor?: string;
 }
 
-const PrimaryButton = ({ title, onPress }: Props) => {
+const PrimaryButton = ({ title, onPress, backgroundColor, textColor }: Props) => {
   const { Images, Layout, Gutters, Fonts, Colors, Common } = useTheme();
   return (
     <TouchableOpacity
       style={[
         Gutters.x16VPadding,
         Gutters.x16HMargin,
-        { backgroundColor: Colors.midGrey, borderRadius: 12 },
+        { backgroundColor: backgroundColor || Colors.midGrey , borderRadius: 12 },
       ]}
       onPress={onPress}
     >
       <Text
-        style={[Fonts.textCenter, Fonts.title1_semibold, { color: 'white' }]}
+        style={[Fonts.textCenter, Fonts.title1_semibold, { color: textColor || Colors.white }]}
       >
         {title}
       </Text>

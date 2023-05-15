@@ -1,3 +1,4 @@
+//файл стилей layout'a
 import { StyleSheet } from 'react-native';
 import { ThemeVariables } from 'types/theme';
 

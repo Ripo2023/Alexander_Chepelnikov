@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
@@ -15,19 +15,69 @@ import CheckBox from '@react-native-community/checkbox';
 import PrimaryButton from '../../components/buttons/primary-button';
 import Back from '../../theme/assets/svg/Back';
 import { ApplicationScreenProps } from 'types/navigation';
+import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
+import { useStoreDispatch } from '../../store/hooks';
+import { setUser } from '../../store/reducers/user';
+import { CommonActions } from '@react-navigation/native';
+import { alert } from '../App';
 
 const Index = ({ navigation }: ApplicationScreenProps): JSX.Element => {
   const { Images, Layout, Gutters, Fonts, Colors, Common } = useTheme();
   const { t } = useTranslation('login_screen');
   const [checked, setChecked] = useState(false);
-  const [isCode, setIsCode] = useState(false);
+  const [code, setCode] = useState('');
+  const [phone, setPhone] = useState('');
+
+  // @ts-ignore
+  const [confirm, setConfirm] = useState<any>(null);
+
+  const dispatch = useStoreDispatch();
+  const onAuthStateChanged = useCallback((user: any) => {
+    if (user) {
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 1,
+          routes: [
+            {
+              name: 'MainListScreen',
+            },
+          ],
+        }),
+      );
+      dispatch(setUser(JSON.stringify(user)));
+    }
+  }, []);
+  //авторизация по телефону
+  const signInWithPhoneNumber = async () => {
+    try {
+      const confirmation = await auth().signInWithPhoneNumber(phone);
+      setConfirm(confirmation);
+    } catch (e) {
+      alert('error', 'Internet error', 'check your connection');
+    }
+  };
+  //подтверждение кода
+  async function confirmCode() {
+    try {
+      alert('success', 'Welcome!', 'We glad to see you');
+      await confirm.confirm(code);
+    } catch (error) {
+      alert('error', 'Invalid code.', 'please try again');
+    }
+  }
+  useEffect(() => {
+    //установка слушателя на изменение автоизации
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber; // unsubscribe on unmount
+  }, []);
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={[Layout.fullSize]}
     >
       <View style={{ backgroundColor: Colors.white }}>
-        {isCode ? (
+        {confirm ? (
           <View
             style={[
               Gutters.x20BMargin,
@@ -39,7 +89,7 @@ const Index = ({ navigation }: ApplicationScreenProps): JSX.Element => {
             <View style={[{ flex: 1 }]}>
               <TouchableOpacity
                 onPress={() => {
-                  setIsCode(false);
+                  setConfirm(null);
                 }}
               >
                 <Back />
@@ -56,7 +106,7 @@ const Index = ({ navigation }: ApplicationScreenProps): JSX.Element => {
           </Text>
         )}
         <LoginImage style={[Gutters.x24BMargin]} />
-        {isCode ? (
+        {confirm ? (
           <>
             <View style={[Gutters.x24BMargin, Gutters.x16HMargin]}>
               <Text style={[Fonts.caption2_regular, Gutters.x8BMargin]}>
@@ -64,8 +114,10 @@ const Index = ({ navigation }: ApplicationScreenProps): JSX.Element => {
               </Text>
               <TextInputPaper
                 style={[Common.textInput]}
+                onChangeText={t => setCode(t)}
                 activeUnderlineColor={Colors.transparent}
                 underlineColor={Colors.transparent}
+                value={code}
                 selectionColor={'#fff'}
                 placeholderTextColor={Colors.grey}
                 mode={'outlined'}
@@ -76,7 +128,8 @@ const Index = ({ navigation }: ApplicationScreenProps): JSX.Element => {
             </View>
             <PrimaryButton
               title={'Sign In'}
-              onPress={() => navigation.navigate('MainListScreen')}
+              backgroundColor={!code ? Colors.midGrey : Colors.orange}
+              onPress={() => confirmCode()}
             />
           </>
         ) : (
@@ -87,11 +140,13 @@ const Index = ({ navigation }: ApplicationScreenProps): JSX.Element => {
               </Text>
               <TextInputPaper
                 style={[Common.textInput]}
+                onChangeText={t => setPhone(t)}
                 activeUnderlineColor={Colors.transparent}
                 underlineColor={Colors.transparent}
                 selectionColor={'#fff'}
                 placeholderTextColor={Colors.grey}
                 mode={'outlined'}
+                value={phone}
                 dense
                 activeOutlineColor={'000'}
                 outlineColor={Colors.midGrey}
@@ -113,7 +168,11 @@ const Index = ({ navigation }: ApplicationScreenProps): JSX.Element => {
                 i’m agree with privacy policy and user agreement
               </Text>
             </View>
-            <PrimaryButton title={'Continue'} onPress={() => setIsCode(true)} />
+            <PrimaryButton
+              title={'Continue'}
+              backgroundColor={!phone ? Colors.midGrey : Colors.orange}
+              onPress={() => signInWithPhoneNumber()}
+            />
           </>
         )}
       </View>

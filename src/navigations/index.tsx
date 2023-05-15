@@ -15,8 +15,12 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import OnBoardingScreen from '../scenes/onboarding-screen';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import LoginScreen from '../scenes/login-screen';
-import MainListScreen from "../scenes/main-list-screen";
-import ProductScreen from "../scenes/product-screen";
+import MainListScreen from '../scenes/main-list-screen';
+import ProductScreen from '../scenes/product-screen';
+import OrderScreen from '../scenes/order-screen';
+import OrdersScreen from '../scenes/orders-screen';
+import QrCodeScreen from '../scenes/qr-code-screen';
+import MapScreen from '../scenes/map-screen';
 const Stack = createNativeStackNavigator<ApplicationStackParamList>();
 
 const RootNavigation = () => {
@@ -39,7 +43,7 @@ const RootNavigation = () => {
           <StatusBar
             backgroundColor={Colors.white}
             animated
-            barStyle={darkMode ? 'light-content' : 'dark-content'}
+            barStyle={'dark-content'}
           />
           <Stack.Navigator
             screenOptions={{
@@ -55,6 +59,10 @@ const RootNavigation = () => {
             <Stack.Screen component={LoginScreen} name={'LoginScreen'} />
             <Stack.Screen component={MainListScreen} name={'MainListScreen'} />
             <Stack.Screen component={ProductScreen} name={'ProductScreen'} />
+            <Stack.Screen component={OrderScreen} name={'OrderScreen'} />
+            <Stack.Screen component={OrdersScreen} name={'OrdersScreen'} />
+            <Stack.Screen component={QrCodeScreen} name={'QrCodeScreen'} />
+            <Stack.Screen component={MapScreen} name={'MapScreen'} />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaProvider>

@@ -117,7 +117,6 @@ const mergeVariables = (
   themeConfig: Partial<ThemeVariables>,
   darkThemeConfig: Partial<ThemeVariables>,
 ) => {
-  console.log(DefaultVariables);
   return Object.entries(DefaultVariables).reduce((acc, [group, vars]) => {
     const theme:
       | Record<keyof typeof DefaultVariables, typeof vars>

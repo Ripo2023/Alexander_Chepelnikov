@@ -1,35 +1,77 @@
-import React, { cloneElement, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import useTheme from '../../hooks/useTheme';
 import CupCoffee from '../../theme/assets/svg/CupCoffee';
 import MapLocation from '../../theme/assets/svg/MapLocation';
 import Carousel from 'react-native-reanimated-carousel';
 import Metrics from '../../theme/Metrics';
-import { G } from 'react-native-svg';
 import PrimarySmallButton from '../../components/buttons/primary-small-button';
 import { ApplicationScreenProps } from 'types/navigation';
 import Banner from '../../theme/assets/svg/Banner';
+import { Modalize } from 'react-native-modalize';
+import ProductScreen from '../product-screen';
+import { useStoreSelector } from '../../store/hooks';
 
 const Index = ({ navigation }: ApplicationScreenProps) => {
   const { Images, Layout, Gutters, Fonts, Colors, Common } = useTheme();
   const [selectedCategory, setSelectedCategory] = useState(0);
+  const { cart } = useStoreSelector(state => state.cartReducer);
   const categories = [
     { id: 0, name: 'Coffee' },
     { id: 1, name: 'Tea' },
     { id: 2, name: 'Drinks' },
     { id: 3, name: 'Desserts' },
   ];
+  const items = {
+    Coffee: [
+      { image: Images.Coffee, name: 'Cappuccino', price: 120 },
+      { image: Images.Coffee, name: 'Cappuccino', price: 120 },
+      { image: Images.Coffee, name: 'Cappuccino', price: 120 },
+      { image: Images.Coffee, name: 'Cappuccino', price: 120 },
+      { image: Images.Coffee, name: 'Cappuccino', price: 120 },
+    ],
+    Tea: [],
+    Drinks: [],
+    Desserts: [],
+  };
+
+  const modalizeRef = useRef<Modalize>(null);
+
+  const onOpen = () => {
+    modalizeRef.current?.open();
+  };
   return (
-    <ScrollView style={{ backgroundColor: Colors.white }}>
-      <View style={[Gutters.x32TMargin, Gutters.x16HMargin]}>
+    <>
+      <ScrollView
+        style={[
+          { backgroundColor: Colors.white },
+          Gutters.x32TPadding,
+          Gutters.x16HPadding,
+        ]}
+        stickyHeaderIndices={[2]}
+      >
         <View style={[Layout.row, Layout.alignItemsCenter]}>
-          <CupCoffee />
+          <TouchableOpacity
+            style={
+              cart.length === 0
+                ? {}
+                : { borderWidth: 2, borderRadius: 20, borderColor: Colors.blue }
+            }
+            onPress={() => navigation.navigate('OrdersScreen')}
+          >
+            <CupCoffee />
+          </TouchableOpacity>
           <View style={[Gutters.x20LMargin]}>
             <Text style={[Fonts.caption1_regular]}>Coffee shop address</Text>
-            <View style={[Layout.row, Layout.center]}>
+            <TouchableOpacity
+              style={[Layout.row, Layout.center]}
+              onPress={() => navigation.navigate('MapScreen')}
+            >
               <MapLocation />
-              <Text style={[Fonts.text_semibold]}>43, Marathon st.</Text>
-            </View>
+              <Text style={[Fonts.text_semibold]}>
+                Минск, просп. Победителей, 20
+              </Text>
+            </TouchableOpacity>
           </View>
         </View>
         <Carousel
@@ -40,7 +82,7 @@ const Index = ({ navigation }: ApplicationScreenProps) => {
           style={{ width: Metrics.screenWidth }}
           pagingEnabled={false}
           snapEnabled={false}
-          renderItem={({ item, index }) => (
+          renderItem={({ item, index }: any) => (
             <View
               style={[
                 Gutters.x12TMargin,
@@ -56,7 +98,13 @@ const Index = ({ navigation }: ApplicationScreenProps) => {
           )}
         />
         <ScrollView horizontal={true}>
-          <View style={[Layout.row, Gutters.x24Gap]}>
+          <View
+            style={[
+              Layout.row,
+              Gutters.x24Gap,
+              { backgroundColor: Colors.white },
+            ]}
+          >
             {categories.map((item, index) => (
               <>
                 {item.id === selectedCategory ? (
@@ -96,12 +144,17 @@ const Index = ({ navigation }: ApplicationScreenProps) => {
             Gutters.x24TMargin,
           ]}
         >
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(item => (
-            <View style={{ shadowColor: 'rgba(0,0,0,0.22)', elevation: 4 }}>
+          {items[
+            categories.filter(item => item.id === selectedCategory)[0].name
+          ].map((item, index) => (
+            <View
+              key={index}
+              style={{ shadowColor: 'rgba(0,0,0,0.22)', elevation: 4 }}
+            >
               <View
                 style={[
                   {
-                    width: Metrics.getWidth(164),
+                    width: Metrics.getWidth(160),
                     borderRadius: 12,
                   },
                   Gutters.x24HPadding,
@@ -130,7 +183,7 @@ const Index = ({ navigation }: ApplicationScreenProps) => {
                 </Text>
                 <PrimarySmallButton
                   onPress={() => {
-                    navigation.navigate('ProductScreen');
+                    onOpen();
                   }}
                   backgroundColor={Colors.transparent}
                   textColor={Colors.orange}
@@ -140,8 +193,9 @@ const Index = ({ navigation }: ApplicationScreenProps) => {
             </View>
           ))}
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+      <ProductScreen modalRef={modalizeRef} />
+    </>
   );
 };
 
